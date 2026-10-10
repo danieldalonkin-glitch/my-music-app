@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Музыкальный Плеер</title>
+    <!-- Официальный скрипт Telegram Web Apps -->
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            background-color: #0c010c;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 16px;
+            user-select: none;
+        }
+        .header {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            padding: 10px 0;
+            color: #ff007f;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+            letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex;
+            background: #180317;
+            border-radius: 14px;
+            padding: 4px;
+            margin: 16px 0;
+            border: 1px solid #33052f;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #b58cb2;
+            cursor: pointer;
+            border-radius: 11px;
+        }
+        .tab.active {
+            background: #ff007f;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.4);
+        }
+        .search-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            background: #180317;
+            border: 1px solid #4a0944;
+            border-radius: 12px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-input::placeholder {
+            color: #7a5477;
+        }
+        .search-btn {
+            background: #ff007f;
+            border: none;
+            color: white;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255, 0, 127, 0.4);
+        }
+        .track-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .track-item {
+            background: #1c041a;
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #2e082a;
+        }
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .track-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .track-artist {
+            font-size: 13px;
+            color: #a681a3;
+        }
+        .play-btn {
+            background: #ff007f;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">🔮 Музыка | Песни</div>
+
+    <!-- Вкладки из вашего скриншота -->
+    <div class="tabs">
+        <div class="tab active">Медиа</div>
+        <div class="tab">Направления</div>
+        <div class="tab">Звукозаписи</div>
+    </div>
+
+    <!-- Интерактивный поиск -->
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Напишите песню или артиста...">
+        <button id="searchBtn" class="search-btn">Найти</button>
+    </div>
+
+    <!-- Быстрый выбор популярных треков -->
+    <div class="track-list">
+        <div class="track-item" onclick="sendTrack('Daron Malakian Funny')">
+            <div class="track-info">
+                <span class="track-title">Funny</span>
+                <span class="track-artist">Daron Malakian</span>
+            </div>
+            <button class="play-btn">▶ Поиск</button>
+        </div>
+        <div class="track-item" onclick="sendTrack('Daron Malakian Babylon')">
+            <div class="track-info">
+                <span class="track-title">Babylon</span>
+                <span class="track-artist">Daron Malakian</span>
+            </div>
+            <button class="play-btn">▶ Поиск</button>
+        </div>
+        <div class="track-item" onclick="sendTrack('Daron Malakian Lives')">
+            <div class="track-info">
+                <span class="track-title">Lives</span>
+                <span class="track-artist">Daron Malakian</span>
+            </div>
+            <button class="play-btn">▶ Поиск</button>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        // Функция для отправки ручного поиска
+        searchBtn.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                tg.sendData(query);
+                tg.close();
+            }
+        });
+
+        // Функция для клика по готовым трекам из списка
+        function sendTrack(trackName) {
+            tg.sendData(trackName);
+            tg.close();
+        }
+    </script>
+</body>
+              </html>
+              
